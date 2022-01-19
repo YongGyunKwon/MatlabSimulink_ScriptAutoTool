@@ -6,7 +6,7 @@
 clear;
 
 filename = 'D:\2_CodeBase\6_SimulinkTool\MatlabSimulink_ScriptAutoTool\Sample.slx';
-Depth = 1;
+Depth = 1; %Modify Value what you want(Depth)
 
 
 
