@@ -48,7 +48,7 @@ for in=1:size(Inport_list,2)
     Inport_Add=add_block('built-in/Inport',Inport_Name,'Position',pos);
     Inport_Add_out=add_block('built-in/Inport',Inport_Name_out,'Position',pos);
     
-    
+    disp('11');
     
     %add_line 함수 사용하여 Subsystem과 Inport 사이 연결
     add_line(filename,Inport_Name_out_refer, SubSystem_Port_refer);
@@ -60,21 +60,34 @@ end
 %위의 Inport 만들기 작업 끝나면 참고하여 Outport 내용도 채워넣기
 for out=1:size(Outport_list,2)
     %InportName(참조용)
-    Outport_Name=[Subsystem_Name '/' char(Outport_list(out))];
-    Outport_Name_out=[filename '/' char(Outport_list(out))];
+    Outport_Name=[Subsystem_Name '/' char(Inport_list(out))];
+    Inport_Name_out=[filename '/' char(Inport_list(out))];
     
-    Outport_Name_out_refer=[char(Outport_list(out)) '/1'];
+    Inport_Name_out_refer=[char(Inport_list(out)) '/1'];
     SubSystem_Port_refer=[filename '/' num2str(out)];
     
-    Outport_Add=add_block('built-in/Outport',Outport_Name,'Position',pos);
-    Outport_Add_out=add_block('built-in/Outport',Outport_Name_out,'Position',pos);
+    Inport_Add=add_block('built-in/Outport',Inport_Name,'Position',pos);
+    Inport_Add_out=add_block('built-in/Outport',Inport_Name_out,'Position',pos);
     
-    %add_line 함수 사용하여 Subsystem과 Outport 사이 연결
-    add_line(filename,Outport_Name_out_refer, SubSystem_Port_refer);
+    disp('11');
+    
+    %add_line 함수 사용하여 Subsystem과 Inport 사이 연결
+    add_line(filename,Inport_Name_out_refer, SubSystem_Port_refer);
     
     
 end
 
+
+
+%아래 주석은 예시
+
+%add_block('built-in/Inport','test12/hello/In1','Position',pos);
+%add_block('built-in/Inport','test12/hello/In2','Position',pos);
+%add_block('built-in/Outport','test12/hello/In3','Position',pos);
+
+%add_block('built-in/Inport','test12/In1','Position',pos);
+
+%add_block(NS,'Inport','Name','Input_BBB');
 
 
 save_system(NS);
@@ -94,10 +107,7 @@ function Make_New_SubSystem(filename,Inport_list,Outport_list)
     %StateChartName은 업무양식에 맞게 바꿀것
     StateChart_Name=[filename '/' filename '/' filename '_State_Chart'];
     
-    %Make Subsystem
     add_block('built-in/Subsystem',Subsystem_Name);
-    
-    
     
     save_system(NS);
     close_system(NS);

@@ -6,6 +6,7 @@ clear;
 filename="D:\2_CodeBase\6_SimulinkTool\Sample.slx"; %Change Filename by your PC Setting
 
 %Transitions_Table 변수는 전역변수로 선언해놓기!!
+global Transitions_Table;
 
 %Open Model File(.slx)
 open_system(filename);
@@ -42,6 +43,7 @@ for i=1:transitions_count
     end
 
     %Transitions_Table(i).Destination = transitions(i).Destination.Name;
+
     Transitions_Table(i).Contents=transitions(i,1).LabelString;
     Transitions_Table(i).ExecutionOrder=transitions(i,1).ExecutionOrder;
     
