@@ -69,10 +69,11 @@ for out=1:size(Outport_list,2)
     Outport_Add=add_block('built-in/Outport',Outport_Name,'Position',pos);
     Outport_Add_out=add_block('built-in/Outport',Outport_Name_out,'Position',pos);
     
+    OutportHandle=get_param(Outport_Name,'Handle');
+    
     %add_line 함수 사용하여 Subsystem과 Outport 사이 연결
-    add_line(filename,Outport_Name_out_refer, SubSystem_Port_refer);
-    
-    
+    add_line(filename,SubSystem_Port_refer,Outport_Name_out_refer);
+     
 end
 
 
@@ -98,9 +99,51 @@ function Make_New_SubSystem(filename,Inport_list,Outport_list)
     add_block('built-in/Subsystem',Subsystem_Name);
     
     
+    %Make Inport
+    for in=1:size(Inport_list,2)
+    
+        %InportName(참조용)
+        Inport_Name=[Subsystem_Name '/' char(Inport_list(in))];
+        Inport_Name_out=[filename '/' char(Inport_list(in))];
+
+        Inport_Name_out_refer=[char(Inport_list(in)) '/1'];
+        SubSystem_Port_refer=[filename '/' num2str(in)];
+
+        Inport_Add=add_block('built-in/Inport',Inport_Name,'Position',pos);
+        Inport_Add_out=add_block('built-in/Inport',Inport_Name_out,'Position',pos);
+
+
+
+        %add_line 함수 사용하여 Subsystem과 Inport 사이 연결
+        add_line(filename,Inport_Name_out_refer, SubSystem_Port_refer);
+
+
+    end
+
+    %Make Outport
+    for out=1:size(Outport_list,2)
+        %InportName(참조용)
+        Outport_Name=[Subsystem_Name '/' char(Outport_list(out))];
+        Outport_Name_out=[filename '/' char(Outport_list(out))];
+
+        Outport_Name_out_refer=[char(Outport_list(out)) '/1'];
+        SubSystem_Port_refer=[filename '/' num2str(out)];
+
+        Outport_Add=add_block('built-in/Outport',Outport_Name,'Position',pos);
+        Outport_Add_out=add_block('built-in/Outport',Outport_Name_out,'Position',pos);
+
+        OutportHandle=get_param(Outport_Name,'Handle');
+
+        %add_line 함수 사용하여 Subsystem과 Outport 사이 연결
+        add_line(filename,SubSystem_Port_refer,Outport_Name_out_refer);
+
+    end
+    
+    
     
     save_system(NS);
     close_system(NS);
+    
 end
 
 
