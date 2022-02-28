@@ -77,11 +77,10 @@ for out=1:size(Outport_list,2)
 end
 
 
+sfnew '_State_Chart';
 
 save_system(NS);
 close_system(NS);
-
-
 
 
 
@@ -97,8 +96,7 @@ function Make_New_SubSystem(filename,Inport_list,Outport_list)
     
     %Make Subsystem
     add_block('built-in/Subsystem',Subsystem_Name);
-    
-    
+      
     %Make Inport
     for in=1:size(Inport_list,2)
     
@@ -112,11 +110,8 @@ function Make_New_SubSystem(filename,Inport_list,Outport_list)
         Inport_Add=add_block('built-in/Inport',Inport_Name,'Position',pos);
         Inport_Add_out=add_block('built-in/Inport',Inport_Name_out,'Position',pos);
 
-
-
         %add_line 함수 사용하여 Subsystem과 Inport 사이 연결
         add_line(filename,Inport_Name_out_refer, SubSystem_Port_refer);
-
 
     end
 
@@ -139,13 +134,7 @@ function Make_New_SubSystem(filename,Inport_list,Outport_list)
 
     end
     
-    
-    
     save_system(NS);
     close_system(NS);
     
 end
-
-
-
-
