@@ -1,8 +1,12 @@
 
 %Data
 ModelName='Hello';
+% Chart를 SubSystem으로 커버하는거 필요
+% Position 조절필요
+
 SCName=[ModelName '_State_Chart'];
 
+% 구조체로 받을 경우 로직 일부 수정 필요
 Inport_list=["Input_AAA","Input_BBB","Input_CCC","Input_DDD"];
 Outport_list=["Output_AAA","Output_BBB","Output_CCC","Output_DDD"];
 
