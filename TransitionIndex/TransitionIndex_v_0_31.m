@@ -4,7 +4,7 @@
 
 
 %Sample Transition
-%Transition='L_ISGCtrl_ISGEnterStatus == ISG_Enable && (I_Snsr_AMBTemp <= Par_ISGCtrl_EnterAMBTempLow || I_Snsr_AMBTemp >= Par_ISGCtrl_EnterAMBTempHgh)';
+
 
 Transition = '(AA || (BB && (CC || DD) || (EE && FF)) || (GG || HH))';
 %Transition = 'AA||(BB&&CC||(DD))';
