@@ -4,8 +4,8 @@
 
 
 %Sample Transition
-%Transition = '(AA||(BB&&CC))';
-Transition = '(AA||(BB&&CC))';
+Transition = 'AA||(DD&&(BB&&CC))';
+
 
 Transition_size=size(Transition,2);
 
@@ -21,31 +21,22 @@ bracket_count_index_out=bracket_count;
 result='';
 
 
-%Transition 시작부터 괄호가 있는 경우
-for i=1:Transition_size
+%Transition 시작부터 괄호가 없는경우
+for j=1:Transition_size
     
-    now_char=Transition_char(i);
+    now_char=Transition_char(j);
     
     % ( 부분
     % Use bracket_count_index_in
     if now_char=='('
-        %첫번째 괄호부터
-        if bracket_count_index_in==1
+        
+        result=append(result,'\n');
+        result=append(result,string(bracket_count_index_in));
+        result=append(result,char(tab_counter(bracket_count_index_in))); %tab
+        result=append(result,now_char);
             
-            result=append(result,now_char);
-            result=append(result,'\n');%
-            result=append(result,string(bracket_count_index_in)); %띄어쓰기 갯수 파악
-            result=append(result,char(tab_counter(bracket_count_index_in))); %tab
-            
-            bracket_count_index_in=bracket_count_index_in+1;
-        else
-            result=append(result,'\n');
-            result=append(result,string(bracket_count_index_in));
-            result=append(result,char(tab_counter(bracket_count_index_in))); %tab
-            result=append(result,now_char);
-            
-            bracket_count_index_in=bracket_count_index_in+1;
-        end
+        bracket_count_index_in=bracket_count_index_in+1;
+        
         
     % ) 부분
     % Use bracket_count_index_out
@@ -55,10 +46,7 @@ for i=1:Transition_size
             result=append(result,now_char);
             
             bracket_count_index_out=bracket_count_index_out-1;
-        %괄호 끝일경우
-        elseif bracket_count_index_out==1
-            result=append(result,'\n');
-            result=append(result,now_char);
+        
         %그 외의 )
         else
             result=append(result,'\n');
@@ -75,6 +63,9 @@ for i=1:Transition_size
     end
 
 end
+
+
+
 
 result_print=sprintf(result);
 disp(result_print);
