@@ -4,26 +4,30 @@
 
 
 %Sample Transition
+%Transition='L_ISGCtrl_ISGEnterStatus == ISG_Enable && (I_Snsr_AMBTemp <= Par_ISGCtrl_EnterAMBTempLow || I_Snsr_AMBTemp >= Par_ISGCtrl_EnterAMBTempHgh)';
+
 Transition = '(AA || (BB && (CC || DD) || (EE && FF)) || (GG || HH))';
 %Transition = 'AA||(BB&&CC||(DD))';
 
 disp(Transition_Index(Transition));
 
-
-%Transition 
+% Transition
+% 해당 함수를 사용하기 위해 아래에 선언된 함수들이 모두 존재해야함.
+% 매개변수 Transition에는 Transition식을 넣어야 함
 function result_print=Transition_Index(Transition)
 
     Transition_char=char(Transition);
-    
+    % '('로 시작될 경우
     if Transition_char(1)=='('
         result_print=Transition_Index_InStart(Transition);
+    % '('로 시작되지 않을 경우
     else
         result_print=Transition_Index_InNotStart(Transition);
     end
 
 end
 
-
+%'('로 시작하는 Transition
 function result_print_InStart=Transition_Index_InStart(Transition)
 
     Transition_size=size(Transition,2);
@@ -99,7 +103,7 @@ function result_print_InStart=Transition_Index_InStart(Transition)
     %disp(result_print_InStart);
 
 end
-
+%'('로 시작하지 않은 Transition
 function result_print_InNotStart=Transition_Index_InNotStart(Transition)
     Transition_size=size(Transition,2);
 
@@ -151,7 +155,7 @@ function result_print_InNotStart=Transition_Index_InNotStart(Transition)
                 bracket_count_index_out=bracket_count_index_out-1;
             end
 
-        else 
+        else
             result=append(result,now_char);
         end
 
@@ -165,5 +169,6 @@ function taab=tab_counter(tab_number)
     taab='';
     for tab_i=1:(tab_number)
         taab=append(taab,'\t');
+        
     end
 end
