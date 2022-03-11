@@ -2,9 +2,8 @@
 % (가 첫번째인 경우, 아닌경우 합친버전
 %REQ-0002
 
-
 %Sample Transition
-%Transition='L_ISGCtrl_ISGEnterStatus == ISG_Enable && (I_Snsr_AMBTemp <= Par_ISGCtrl_EnterAMBTempLow || I_Snsr_AMBTemp >= Par_ISGCtrl_EnterAMBTempHgh)';
+
 
 Transition = '(AA || (BB && (CC || DD) || (EE && FF)) || (GG || HH))';
 %Transition = 'AA||(BB&&CC||(DD))';
@@ -13,7 +12,7 @@ disp(Transition_Index(Transition));
 
 % Transition
 % 해당 함수를 사용하기 위해 아래에 선언된 함수들이 모두 존재해야함.
-% 매개변수 Transition에는 Transition식을 
+% 매개변수 Transition에는 Transition식을 넣어야 함
 function result_print=Transition_Index(Transition)
 
     Transition_char=char(Transition);
@@ -48,7 +47,12 @@ function result_print_InStart=Transition_Index_InStart(Transition)
     for i=1:Transition_size
 
         now_char=Transition_char(i);
-
+        next_char='';
+        
+        if i<Transition_size
+            next_char=Transition_char(i+1);
+        end
+        
         % ( 부분
         % Use bracket_count_index_in
         if now_char=='('
@@ -74,6 +78,7 @@ function result_print_InStart=Transition_Index_InStart(Transition)
         % Use bracket_count_index_out
         elseif now_char==')'
             %첫번째 ) 일 경우
+                
             if bracket_count_index_out==bracket_count
                 result=append(result,now_char);
 
@@ -82,6 +87,12 @@ function result_print_InStart=Transition_Index_InStart(Transition)
             elseif bracket_count_index_out==1
                 result=append(result,'\n');
                 result=append(result,now_char);
+            %다음글자가 ')' 일 경우
+            elseif next_char==')'
+                result=append(result,now_char);
+                
+                bracket_count_index_out=bracket_count_index_out-1;
+    
             %그 외의 )
             else
                 result=append(result,'\n');
@@ -103,12 +114,14 @@ function result_print_InStart=Transition_Index_InStart(Transition)
     %disp(result_print_InStart);
 
 end
+
 %'('로 시작하지 않은 Transition
 function result_print_InNotStart=Transition_Index_InNotStart(Transition)
     Transition_size=size(Transition,2);
 
     Transition_char=char(Transition);
-
+    
+    
     %괄호갯수 count
     bracket_count=count(Transition,'(');
 
@@ -123,7 +136,13 @@ function result_print_InNotStart=Transition_Index_InNotStart(Transition)
     for j=1:Transition_size
 
         now_char=Transition_char(j);
-
+        
+        next_char='';
+        
+        if j<Transition_size
+            next_char=Transition_char(j+1);
+        end
+        
         % ( 부분
         % Use bracket_count_index_in
         if now_char=='('
@@ -144,7 +163,11 @@ function result_print_InNotStart=Transition_Index_InNotStart(Transition)
                 result=append(result,now_char);
 
                 bracket_count_index_out=bracket_count_index_out-1;
-
+            %다음글자가 ')' 일 경우
+            elseif next_char==')'
+                result=append(result,now_char);
+                
+                bracket_count_index_out=bracket_count_index_out-1;
             %그 외의 )
             else
                 result=append(result,'\n');
