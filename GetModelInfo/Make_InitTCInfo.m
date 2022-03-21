@@ -21,7 +21,6 @@ Outport_Info = [Outport,get_param(Outport,'Name'),get_param(Outport,'Port')];
 close_system();
 
 
-
 ModelName_split=split(filename,'\');
 ModelName_file=string(ModelName_split(end));
 
