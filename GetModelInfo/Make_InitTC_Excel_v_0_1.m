@@ -17,10 +17,10 @@ Import_Data_for_Excel={TCInit_Result.TC_Init_Name,'','','O','',TCInit_Result.TC_
 
 %copy Excel file From 'Template_for_NotReqTC'
 if Select_Template==1
-    Copy_Statys=copyfile(Template_for_NotReqTC_Path,pastepath);
+    copyfile(Template_for_NotReqTC_Path,pastepath);
 %copy Excel file From 'Template_for_ReqTC'
 elseif Select_Template==2
-    Copy_Statys=copyfile(Template_for_ReqTC_Path,pastepath);
+    copyfile(Template_for_ReqTC_Path,pastepath);
 end
 
 %writecell for NotReq Temlate
