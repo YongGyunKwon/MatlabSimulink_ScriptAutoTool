@@ -6,12 +6,24 @@ Modify_IO_Name(filename);
 %Origin_Data, Modify_Data 구조체 형식으로 받아오는 방법 생각하기
 function Modify_IO_Name(filename)
     open_system(filename);
+    
+    %for문 써서 구조체 들어가기
+    
+    % Origin_Data, Modify_Data도 for문에서 참고
     Origin_Data='Input_AAA';
     Modify_Data='Input_ThisisModify';
-
+    
+    %if문 써서 수정,추가,삭제 하기
+    
+    %1. Modify Inport
     Inport_sysport_Modify(Origin_Data,Modify_Data);
-    %Outport_sysport_Modify(Origin_Data,Modify_Data);
+    %add StateChart, Transition
+    
+    %2. Modify Outport
+    
 
+    %Outport_sysport_Modify(Origin_Data,Modify_Data);
+    
     %save_system();
 end
 
