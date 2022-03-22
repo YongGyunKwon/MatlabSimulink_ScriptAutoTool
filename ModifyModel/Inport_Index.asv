@@ -1,0 +1,46 @@
+
+filename="D:\2_CodeBase\6_SimulinkTool\MatlabSimulink_ScriptAutoTool\ModifyModel\Sample_v_0_1.slx"; %Change Filename by your PC Setting
+
+Origin_Data='Input_AA';
+Modify_Data='Four_bb';
+
+open_system(filename);
+
+%Inport = find_system('SearchDepth',1,'BlockType','Inport');
+%Outport = find_system('SearchDepth',1,'BlockType','Outport');
+
+%Inport(1);
+
+s=slroot;
+
+
+%input_handle_list=s.find('-isa','Stateflow.Data','-and','Scope','Input');
+%Inport_subsystem=s.find('-isa','Simulink.Inport','-and','BlockType','Inport');
+
+
+Inport_sysport_handle_list=s.find('-isa','Simulink.Inport','-and','Name','Input_BBB');
+size(Inport_sysport_handle_list,1)
+Outport_subsystem=s.find('-isa','Simulink.Inport','-and','BlockType','Inport');
+
+Inport_sysport_handle_list(1).Name='Input_asdasdasdas';
+Inport_sysport_handle_list(2).Name='Input_asdasdasdas';
+Inport_sysport_handle_list(3).Name='Input_asdasdasdas';
+
+%둘다 바꿔주기
+%Inport_sysport_handle_list(1).Name='Input_ASDF';
+%Inport_sysport_handle_list(1).PortName='Input_ASDF';
+
+%aa=find_system('BlockType','Inport');
+
+%Inport_Info = [Inport,get_param(Inport,'Name'),get_param(Inport,'Port')];
+
+
+%Inport(1).set_param('Name','Input_ASDF');
+%set(Inport(1),'Name','Input_ASDF');
+
+
+%portData = get_param('Sample_v_0_1/Input_AAA');
+
+
+
+

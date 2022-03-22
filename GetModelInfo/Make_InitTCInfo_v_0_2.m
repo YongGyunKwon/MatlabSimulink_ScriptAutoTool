@@ -1,13 +1,17 @@
 % REQ-0003
 % InitTC생성
+% !Notice
+% Excel로 정보 집어넣는 것은 구현중
+% Excel파일 생성기능 함수 추가 예정
+
 
 modelfilepath = 'D:\2_CodeBase\6_SimulinkTool\MatlabSimulink_ScriptAutoTool\GetModelInfo\Sample_v_0_1.slx';
 
+%함수호출
+% Get_Model_IO_Info 함수를 통하여 모델정보를 불러옴
+% Get_Model_IO_Info 함수에서 불러온 정보를 GetMake_InitTCInfo의 매개변수에 넣어서 
+% TC파일에 넣을 정보 가져옴
 [Inport_Info,Outport_Info]=Get_Model_IO_Info(modelfilepath);
-
-%disp(Inport_Info);
-%disp(Outport_Info);
-
 TCInit_Result=Make_InitTCInfo(modelfilepath,Inport_Info,Outport_Info);
 
 % Get Model I/O Information

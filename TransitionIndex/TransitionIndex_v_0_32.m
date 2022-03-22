@@ -3,10 +3,8 @@
 %REQ-0002
 
 %Sample Transition
-
-
 Transition = '(AA || (BB && (CC || DD) || (EE && FF)) || (GG || HH))';
-%Transition = 'AA||(BB&&CC||(DD))';
+
 
 disp(Transition_Index(Transition));
 

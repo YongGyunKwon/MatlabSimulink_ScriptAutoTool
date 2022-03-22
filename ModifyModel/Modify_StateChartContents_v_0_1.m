@@ -34,7 +34,7 @@ transitions_handle_list = find(sfroot,'-isa','Stateflow.Transition');
 transitions_handle_list_size = size(transitions_handle_list,1);
 
 
-%Modify Parameter list's Name
+%Modify StateChart Parameter's Name
 for parameter_handle_list_index=1:size(parameter_handle_list,1)
 
     parameter_index_name=parameter_handle_list(parameter_handle_list_index).Name;
