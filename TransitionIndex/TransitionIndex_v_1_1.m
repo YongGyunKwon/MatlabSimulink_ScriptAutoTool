@@ -1,11 +1,10 @@
 %TransitionIndex
 %REQ-0002
+%String으로 업데이트중
 
 %Sample Transition
-Transition = '(AA || (BB && (CC || DD) || (EE && FF)) || (GG || HH))';
-
-result=Transition_Index(Transition);
-
+Transition = "(AA || (BB && (CC || DD) || (EE && FF)) || (GG || HH))";
+%Transition = '[hasChangedTo(Input_CAN_HeatSwitch,CAN_HeatSwitch__ON) && Input_CAN_PowerSystem == PowerSystem__IGN || (Input_OPT_b_Localtrade == Localtrade__Force && (Input_CAN_Timesector == Par_TimesectorLimit || Input_CAN_Operation == Off)) && Input_SystemStatus == SystemStatus__CAN]';
 %결과값 보기
 disp(Transition_Index(Transition));
 
@@ -18,34 +17,24 @@ disp(Transition_Index(Transition));
 % 매개변수 Transition에는 Transition식을 넣어야 함 (UI에서 Transition 자리값 입력받아야함)
 % result_print로 결과값 리턴(UI에서 결과값을 넣기위한 변수는 Transition_Index(Transition) 라고 보면됨)
 function result_print=Transition_Index(Transition)
-    
-    Transition_Allchar=char(Transition);
-    if Transition_Allchar(1) == '['
-        Transition_char = erase(string(Transition_Allchar),"[");
-        Transition_char = erase(string(Transition_char),"]");
 
-        Transition_char=char(Transition_char); %추가, 권용균
-
-    end
-
-    Transition_char=char(Transition);
+    Transition_char=string(Transition);
     % '('로 시작될 경우
     % function Transition_Index_Start()을 사용
     if Transition_char(1)=='('
         result_print=Transition_Index_InStart(Transition);
-        result_print=string(result_print);
+
     % '('로 시작되지 않을 경우
     %Transition_Index_InNotStart()을 사용
     else
         result_print=Transition_Index_InNotStart(Transition);
-        result_print=string(result_print);
     end
 
 end
 
 %'('로 시작하는 Transition
 function result_print_InStart=Transition_Index_InStart(Transition)
-    
+
     Transition_size=size(Transition,2);
 
     Transition_char=char(Transition);
@@ -206,7 +195,7 @@ function result_print_InNotStart=Transition_Index_InNotStart(Transition)
 end
 
 function taab=tab_counter(tab_number)
-    taab='';
+    taab="";
     for tab_i=1:(tab_number)
         taab=append(taab,'\t');
         

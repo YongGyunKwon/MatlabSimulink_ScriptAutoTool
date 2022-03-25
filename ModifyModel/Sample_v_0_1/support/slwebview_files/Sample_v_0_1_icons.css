@@ -1,0 +1,11 @@
+.Sample_v_0_10,
+.Sample_v_0_11,
+.Sample_v_0_12,
+.Sample_v_0_13,
+.Sample_v_0_14 { background-image: url('Sample_v_0_1_icons.png'); width: 16px; height: 16px; }
+
+.Sample_v_0_10 { background-position: -0px; }
+.Sample_v_0_11 { background-position: -16px; }
+.Sample_v_0_12 { background-position: -32px; }
+.Sample_v_0_13 { background-position: -48px; }
+.Sample_v_0_14 { background-position: -64px; }
