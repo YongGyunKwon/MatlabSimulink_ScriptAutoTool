@@ -7,56 +7,39 @@ filename="D:\2_CodeBase\6_SimulinkTool\MatlabSimulink_ScriptAutoTool\ModifyModel
 Modify_IO_Name(filename);
 %Inport_sysport_Modify(Origin_Data,Modify_Data);
 
-%Origin_Data, Modify_Data ±¸Á¶Ã¼ Çü½ÄÀ¸·Î ¹Ş¾Æ¿À´Â ¹æ¹ı »ı°¢ÇÏ±â
+%Origin_Data, Modify_Data êµ¬ì¡°ì²´ í˜•ì‹ìœ¼ë¡œ ë°›ì•„ì˜¤ëŠ” ë°©ë²• ìƒê°í•˜ê¸°
 function Modify_IO_Name(filename)
     open_system(filename);
     
-    %for¹® ½á¼­ ±¸Á¶Ã¼ µé¾î°¡±â
+    %forë¬¸ ì¨ì„œ êµ¬ì¡°ì²´ ë“¤ì–´ê°€ê¸°
     
-    % Origin_Data, Modify_Dataµµ for¹®¿¡¼­ Âü°í
+    % Origin_Data, Modify_Dataë„ forë¬¸ì—ì„œ ì°¸ê³ 
     Origin_Input_Data="Input_AAA"; %
     Modify_Input_Data="Input_ThisisModify";
     
     Origin_Output_Data="Output_AAA"; %
     Modify_Output_Data="Output_Hello";
 
-    %if¹® ½á¼­ ¼öÁ¤,Ãß°¡,»èÁ¦ ÇÏ±â
+    %ifë¬¸ ì¨ì„œ ìˆ˜ì •,ì¶”ê°€,ì‚­ì œ í•˜ê¸°
     
     %1. Modify Inport
-    Modify_InportName(Origin_Input_Data,Modify_Input_Data);
+    Modify_Inport(Origin_Input_Data,Modify_Input_Data);
     %add StateChart, Transition
     
     %2. Modify Outport
-    Modify_OutportName(Origin_Output_Data,Modify_Output_Data);
+    Outport_sysport_Modify(Origin_Output_Data,Modify_Output_Data);
     
     %3. Modify Local Data
 
     %4. Modify Parameter
 
-    %5. Add Input
-
-    %6. Add Output
-
-
-    %7. Add Parameter
-
-    %8. Add Local
-
-    %9. Delete Input
-
-    %10. Delete Output
-
-    %11. Delete Parameter
-
-    %12. Delete Local
-
-    
+    %Outport_sysport_Modify(Origin_Data,Modify_Data);
     
     %save_system();
 end
 
 %Modify Inport Name
-function Modify_InportName(Origin_Data,Modify_Data)
+function Modify_Inport(Origin_Data,Modify_Data)
 
     %Search Origin Inport for handle
     s=slroot;
@@ -85,7 +68,7 @@ function Modify_InportName(Origin_Data,Modify_Data)
 end
 
 
-function Modify_OutportName(Origin_Data,Modify_Data)
+function Outport_sysport_Modify(Origin_Data,Modify_Data)
     
     %Search Origin Inport for handle
     s=slroot;
@@ -123,7 +106,7 @@ function Modify_StateChart_Contents(Origin_Data,Modify_Data)
     stateschartcontents_handle_list = find(sfroot,'-isa','Stateflow.State');
     stateschartcontents_handle_list_size = size(stateschartcontents_handle_list,1);
 
-    %StateChart ³»¿ë ±³Ã¼
+    %StateChart ë‚´ìš© êµì²´
     for stateschartcontents_handle_list_index=1:stateschartcontents_handle_list_size
         
         modify_statechart_contents=strrep(stateschartcontents_handle_list(stateschartcontents_handle_list_index).LabelString,Origin_Data,Modify_Data);

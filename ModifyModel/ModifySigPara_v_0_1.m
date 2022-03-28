@@ -43,7 +43,7 @@ function [Inport_Info,Outport_Info] = Get_Model_IO_Info(modelfilepath)
     close_system();
 end
 
-% Extract Parameterlist
+% Extract Parameterlist in M File
 % Data
 function Parameter_Info=Extract_ParameterInfo(parafilepath)
     Parameter_Import=importdata(parafilepath);
