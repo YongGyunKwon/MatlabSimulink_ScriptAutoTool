@@ -118,7 +118,7 @@ function Modify_InportName(Origin_Data,Modify_Data)
     end
     
     Modify_StateChart_Contents(Origin_Data,Modify_Data);
-    Modify_Transition_Contents(Origin_Data,Modify_Data)
+    Modify_Transition_Contents(Origin_Data,Modify_Data);
 end
 
 %2. Modify Outport Name
