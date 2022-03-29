@@ -12,7 +12,7 @@ Model_Signal=Get_ModelSig_Info(filename);
 function Model_Signal=Get_ModelSig_Info(filename)
     open_system(filename);
     Model_Signal.Input=Extract_InputInfo(filename);
-    Model_signal.Output=Extract_OutputInfo(filename);
+    Model_Signal.Output=Extract_OutputInfo(filename);
     Model_Signal.Parameter=Extract_ParameterInfo(filename);
     Model_Signal.Local=Extract_LocalInfo(filename);
 end
