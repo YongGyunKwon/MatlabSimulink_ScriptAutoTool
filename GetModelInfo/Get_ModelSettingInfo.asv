@@ -3,17 +3,9 @@ open_system("Sample.slx");
 
 s=slroot;
 
-aa=find_system('Sample');
-
 statechart_handle=s.find('-isa','Stateflow.Chart');
 statechart_handle_size=size(statechart_handle,1);
 
-
-
-%backgroundcolor=Simulink.Annotation('Sample','BackgroundColor');
-
-
-%backgroundcolor=s.find('-isa','Simulink.Annotation.BackgroundColor');
 
 for statechart_handle_index=1:statechart_handle_size
     disp(statechart_handle(statechart_handle_index).Path);
@@ -25,7 +17,7 @@ for statechart_handle_index=1:statechart_handle_size
     disp(statechart_handle(statechart_handle_index).JunctionColor);
 end
 
-%statechart_handle.ActionLanguage = 'C'; %MATLAB C
+%statechart_handle.ActionLanguage = 'C'; %MATLAB C 
 
 statechart_data_handle=s.find('-isa','Stateflow.Data');
 statechart_data_handle_size=size(statechart_data_handle,1);
