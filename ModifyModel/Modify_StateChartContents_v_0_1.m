@@ -3,8 +3,8 @@ clear;
 
 filename="D:\2_CodeBase\6_SimulinkTool\MatlabSimulink_ScriptAutoTool\ModifyModel\Sample_v_0_1.slx"; %Change Filename by your PC Setting
 
-Origin_Data='Four_aa';
-Modify_Data='Four_bb';
+Origin_Data="Input_AAA";
+Modify_Data="Input_Hello";
 
 
 %Open Model File(.slx)
@@ -62,7 +62,17 @@ end
 %ParameterFile(.m) 내용 교체
 
 
-%Inport for SubSystem 내용 교체
+%Input for StateChart 내용 교체
+for input_handle_list_index=1:input_handle_list_size
+    now=input_handle_list(input_handle_list_index).Name;
+
+    if strcmp(now,Origin_Data)
+        input_handle_list(input_handle_list_index).Name=Modify_Data;
+        
+    end
+end
+
+
 
 
 %Outport for SubSystem 내용 교체
