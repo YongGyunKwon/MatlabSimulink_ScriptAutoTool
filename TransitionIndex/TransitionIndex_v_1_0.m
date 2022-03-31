@@ -2,7 +2,8 @@
 %REQ-0002
 
 %Sample Transition
-Transition = '(AA || (BB && (CC || DD) || (EE && FF)) || (GG || HH))';
+%Transition = '(AA || (BB && (CC || DD) || (EE && FF)) || (GG || HH))';
+Transition = 'hasChangedTo(Input_CAN_HeatSwitch,CAN_HeatSwitch__ON) && Input_CAN_PowerSystem == PowerSystem__IGN || (Input_OPT_b_Localtrade == Localtrade__Force && (Input_CAN_Timesector == Par_TimesectorLimit ||Input_CAN_Operation == Off)) && Input_SystemStatus == SystemStatus__CAN';
 %결과값 보기
 disp(Transition_Index(Transition));
 
