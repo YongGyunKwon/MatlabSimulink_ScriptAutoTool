@@ -1,32 +1,85 @@
 
-open_system("Sample.slx");
+filepath="D:\2_CodeBase\6_SimulinkTool\MatlabSimulink_ScriptAutoTool\GetModelInfo\Sample.slx";
+
+open_system(filepath);
 
 s=slroot;
+
+modelpath=s.find_system(,'SearchDepth','1');
 
 statechart_handle=s.find('-isa','Stateflow.Chart');
 statechart_handle_size=size(statechart_handle,1);
 
 
+
+% Extract StateChart Color
+% Color 부분은 소수점으로 나와서 이 부분 해결할 것!!
 for statechart_handle_index=1:statechart_handle_size
-    disp(statechart_handle(statechart_handle_index).Path);
-    disp(statechart_handle(statechart_handle_index).ActionLanguage);
-    disp(statechart_handle(statechart_handle_index).Decomposition);
-    disp(statechart_handle(statechart_handle_index).TransitionColor);
-    a=statechart_handle(statechart_handle_index).TransitionColor;
-    disp(statechart_handle(statechart_handle_index).TransitionLabelColor);
-    disp(statechart_handle(statechart_handle_index).JunctionColor);
+    ModelSetInfo.StateChartSet(statechart_handle_index).Path=statechart_handle(statechart_handle_index).Path;
+    ModelSetInfo.StateChartSet(statechart_handle_index).ActionLanguage=statechart_handle(statechart_handle_index).ActionLanguage;
+    ModelSetInfo.StateChartSet(statechart_handle_index).Decomposition=statechart_handle(statechart_handle_index).Decomposition;
+    ModelSetInfo.StateChartSet(statechart_handle_index).TransitionColor=statechart_handle(statechart_handle_index).TransitionColor;
+    ModelSetInfo.StateChartSet(statechart_handle_index).TransitionLabelColor=statechart_handle(statechart_handle_index).TransitionLabelColor;
+    ModelSetInfo.StateChartSet(statechart_handle_index).JunctionColor=statechart_handle(statechart_handle_index).JunctionColor;
+
+    %disp(statechart_handle(statechart_handle_index).Path);
+    %disp(statechart_handle(statechart_handle_index).ActionLanguage);
+    %disp(statechart_handle(statechart_handle_index).Decomposition);
+    %disp(statechart_handle(statechart_handle_index).TransitionColor);
+    %disp(statechart_handle(statechart_handle_index).TransitionLabelColor);
+    %disp(statechart_handle(statechart_handle_index).JunctionColor);
+
 end
 
-%statechart_handle.ActionLanguage = 'C'; %MATLAB C 
 
+% Extract Data Type Information
 statechart_data_handle=s.find('-isa','Stateflow.Data');
 statechart_data_handle_size=size(statechart_data_handle,1);
 
 for statechart_data_handle_index=1:statechart_data_handle_size
-    disp(statechart_data_handle(statechart_data_handle_index).Name);
-    disp(statechart_data_handle(statechart_data_handle_index).Scope);
-    disp(statechart_data_handle(statechart_data_handle_index).Path);
-    disp(statechart_data_handle(statechart_data_handle_index).DataType);
+    ModelSetInfo.DataInfo(statechart_data_handle_index).Name=statechart_data_handle(statechart_data_handle_index).Name;
+    ModelSetInfo.DataInfo(statechart_data_handle_index).Port=statechart_data_handle(statechart_data_handle_index).Port;
+    ModelSetInfo.DataInfo(statechart_data_handle_index).Scope=statechart_data_handle(statechart_data_handle_index).Scope;
+    ModelSetInfo.DataInfo(statechart_data_handle_index).Path=statechart_data_handle(statechart_data_handle_index).Path;
+    ModelSetInfo.DataInfo(statechart_data_handle_index).DataType=statechart_data_handle(statechart_data_handle_index).DataType;
+    
+    %disp(statechart_data_handle(statechart_data_handle_index).Name);
+    %disp(statechart_data_handle(statechart_data_handle_index).Scope);
+    %disp(statechart_data_handle(statechart_data_handle_index).Path);
+    %disp(statechart_data_handle(statechart_data_handle_index).DataType);
     %disp(statechart_data_handle(statechart_data_handle_index).Size);
 end
+
+
+%Extract Solver Information
+myConfigObj = getActiveConfigSet('Sample'); %매개변수에 모델명 넣기
+slxConfigset =myConfigObj.find('Name','Solver');
+
+%SolverName 종류
+% VariableStepAuto 유형-가변스텝, 솔버-자동
+% VariableStepDiscrete 유형-가변스텝, 솔버-이산
+% ode45 유형-가변스텝, 솔버-ode45
+% ode23 유형-가변스텝, 솔버-ode23
+% ode113 유형-가변스텝, 솔버-ode113
+% ode15s 유형-가변스텝, 솔버-ode15s
+% ode23s 유형-가변스텝, 솔버-ode23s
+% ode23t 유형-가변스텝, 솔버-ode23t
+% ode23tb 유형-가변스텝, 솔버-ode23tb
+% odeN 유형-가변스텝, 솔버-odeN
+% FixedStepAuto 유형-고정스텝, 솔버-자동
+% FixedStepDiscrete 유형 고정스텝, 솔버-이산 --> 이거 기준!
+% ode8 유형 고정스텝, 솔버-ode8
+% ode5 유형 고정스텝, 솔버-ode5
+% ode4 유형 고정스텝, 솔버-ode4
+% ode3 유형 고정스텝, 솔버-ode3
+% ode2 유형 고정스텝, 솔버-ode2
+% ode14x 유형 고정스텝, 솔버-ode14x
+% ode1be 유형 고정스텝, 솔버-ode1be
+ModelSetInfo.SolverType=slxConfigset.SolverName;
+% 고정스텝 크기
+ModelSetInfo.FixedStep=slxConfigset.FixedStep;
+
+%Get ScreenColor
+modelScreenColor_FirstDepth=get_param('Sample','ScreenColor');
+modelScreenColor_SecondDepth=get_param('Sample/Sample','ScreenColor');
 
