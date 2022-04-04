@@ -1,0 +1,19 @@
+CheckModelingGuide(ModelSetInfo_Multi,ModelingGuideStandardInfo);
+
+
+function CheckModelingGuide(ModelSetInfo_Multi,ModelingGuideStandardInfo)
+    ModelSetInfo_Multi_Size=size(ModelSetInfo_Multi,2);
+    disp(ModelSetInfo_Multi_Size);
+    
+    for ModelSetInfo_Multi_Index=1:ModelSetInfo_Multi_Size
+        %Model Data Check
+        
+
+
+
+
+
+
+    end
+
+end
