@@ -6,18 +6,6 @@ filelist=["D:\2_CodeBase\6_SimulinkTool\MatlabSimulink_ScriptAutoTool\SampleMode
 %ModelSetInfo=Get_ModelSetInfo(filepath);
 ModelSetInfo_Multi=ModelSetInfo_Mudlti(filelist);
 
-ModelingGuideStandardInfo.DataType=["uint8","uint32","single","boolean"];
-ModelingGuideStandardInfo.SolverType="FixedStepDiscrete";
-ModelingGuideStandardInfo.FixedStep="dT";
-ModelingGuideStandardInfo.ActionLanguage="C";
-ModelingGuideStandardInfo.Decomposition="PARALLEL_AND";
-ModelingGuideStandardInfo.ChartColor="fffcec";
-ModelingGuideStandardInfo.TransitionColor="528bc5";
-ModelingGuideStandardInfo.TransitionColor="528bc5";
-ModelingGuideStandardInfo.JunctionColor="c67f00";
-ModelingGuideStandardInfo.ModelScreenColorFirstDepth="white";
-ModelingGuideStandardInfo.ModelScreenColorSecondDepth="white";
-
 
 
 %Get ModelSet Info for Multi
@@ -94,8 +82,9 @@ function ModelSetInfo=Get_ModelSetInfo(filepath)
     ModelSetInfo.FixedStep=slxConfigset.FixedStep;
     
     %Get ScreenColor
-    ModelSetInfo.ModelScreenColor_FirstDepth=get_param(FirstDepthName,'ScreenColor'); 
-    ModelSetInfo.ModelScreenColor_SecondDepth=get_param(SubSystemPath,'ScreenColor');
+    ModelSetInfo.ModelScreenColor=string(get_param(FirstDepthName,'ScreenColor')); 
+    %ModelSetInfo.ModelScreenColor_SecondDepth=string(get_param(FirstDepthName,'ScreenColor')); 
+    %ModelSetInfo.ModelScreenColor_SecondDepth=string(get_param(SubSystemPath,'ScreenColor'));
     
     close_system();
 

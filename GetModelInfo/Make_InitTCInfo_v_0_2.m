@@ -5,8 +5,8 @@
 % Excel파일 생성기능 함수 추가 예정
 
 
-%modelfilepath = 'D:\2_CodeBase\6_SimulinkTool\MatlabSimulink_ScriptAutoTool\GetModelInfo\Sample_v_0_1.slx';
-modelfilepath = 'D:\1_Code\Suresoft\MatlabSimulink_ScriptAutoTool\GetModelInfo\Sample_v_0_1.slx';
+modelfilepath = 'D:\2_CodeBase\6_SimulinkTool\MatlabSimulink_ScriptAutoTool\GetModelInfo\Sample_v_0_1.slx';
+%modelfilepath = 'D:\1_Code\Suresoft\MatlabSimulink_ScriptAutoTool\GetModelInfo\Sample_v_0_1.slx';
 
 %함수호출
 % Get_Model_IO_Info 함수를 통하여 모델정보를 불러옴
