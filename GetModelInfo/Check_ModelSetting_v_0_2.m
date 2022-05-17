@@ -12,16 +12,16 @@ ModelingGuideStandardInfo.JunctionColor="c67f00";
 ModelingGuideStandardInfo.ModelScreenColor="white";
 %ModelingGuideStandardInfo.ModelScreenColorSecondDepth="white";
 
-
+%filelist=["D:\2_CodeBase\6_SimulinkTool\MatlabSimulink_ScriptAutoTool\SampleModel\Sample.slx","D:\2_CodeBase\6_SimulinkTool\MatlabSimulink_ScriptAutoTool\SampleModel\Sample11.slx"];
 result_message=CheckModelingGuide(ModelSetInfo_Multi,ModelingGuideStandardInfo);
 disp("----result---")
-aa=sprintf(result_message);
+%aa=sprintf(result_message);
 
 function result_message=CheckModelingGuide(ModelSetInfo_Multi,ModelingGuideStandardInfo)
     ModelSetInfo_Multi_Size=size(ModelSetInfo_Multi,2);
     disp(ModelSetInfo_Multi_Size);
     
-    result_message="";
+    result_message='';
 
     for ModelSetInfo_Multi_Index=1:ModelSetInfo_Multi_Size
         
@@ -29,8 +29,13 @@ function result_message=CheckModelingGuide(ModelSetInfo_Multi,ModelingGuideStand
         %result_message=append(result_message,"ModelFileName:",ModelSetInfo_Multi(ModelSetInfo_Multi_Index).FileName,"\n");
         %disp(ModelSetInfo_Multi(ModelSetInfo_Multi_Index).FileName);
         
+        %지우기
         result_message=append(result_message,"ModelName:",ModelSetInfo_Multi(ModelSetInfo_Multi_Index).ModelFileInfo.ModelName,"\n");
         
+        Result_message_info(ModelSetInfo_Multi_Index).ModelName=ModelSetInfo_Multi(ModelSetInfo_Multi_Index).ModelFileInfo.ModelName;
+        Result_message_info(ModelSetInfo_Multi_Index).ClearCheck=1;
+
+        %지우기
         disp(ModelSetInfo_Multi(ModelSetInfo_Multi_Index).ModelFileInfo.ModelName);
         
 
@@ -38,6 +43,8 @@ function result_message=CheckModelingGuide(ModelSetInfo_Multi,ModelingGuideStand
         if ModelSetInfo_Multi(ModelSetInfo_Multi_Index).ModelFileInfo.ModelScreenColor ~= ModelingGuideStandardInfo.ModelScreenColor
             disp("Wrong Model ScreenColor");
             result_message=append(result_message,"Wrong ModelScreenColor\n");
+            
+            
         end
 
         %Check Solver Type
@@ -137,7 +144,10 @@ function result_message=CheckModelingGuide(ModelSetInfo_Multi,ModelingGuideStand
             if ModelSetInfo_Multi(ModelSetInfo_Multi_Index).ModelFileInfo.StateChartSet(ModelSet_State_Index).TransitionLabelColor~=ModelingGuideStandardInfo.TransitionLabelColor
                 disp("Wrong TransitionLabel Color");
                 disp(ModelSetInfo_Multi(ModelSetInfo_Multi_Index).ModelFileInfo.StateChartSet(ModelSet_State_Index).Path);
-    
+                
+                result_message=append(result_message,"Wrong Transition Color");
+                result_message=append(result_message,ModelSetInfo_Multi(ModelSetInfo_Multi_Index).ModelFileInfo.StateChartSet(ModelSet_State_Index).Path);
+                result_message=append("\n");
 
             end
 
@@ -145,6 +155,10 @@ function result_message=CheckModelingGuide(ModelSetInfo_Multi,ModelingGuideStand
             if ModelSetInfo_Multi(ModelSetInfo_Multi_Index).ModelFileInfo.StateChartSet(ModelSet_State_Index).JunctionColor~=ModelingGuideStandardInfo.JunctionColor
                 disp("Wrong Junction Color");
                 disp(ModelSetInfo_Multi(ModelSetInfo_Multi_Index).ModelFileInfo.StateChartSet(ModelSet_State_Index).Path);
+
+                result_message=append(result_message,"Wrong Junction Color");
+                result_message=append(result_message,ModelSetInfo_Multi(ModelSetInfo_Multi_Index).ModelFileInfo.StateChartSet(ModelSet_State_Index).Path);
+                result_message=append("\n");
             end
             
         end
