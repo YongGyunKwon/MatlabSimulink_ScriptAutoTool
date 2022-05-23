@@ -75,6 +75,7 @@ function Result_message_info=CheckModelingGuide(ModelSetInfo_Multi,ModelingGuide
 
         
         %Model Data Check
+        %여기먼저 검토하기
         ModelGuideDataCheck_Size=size(ModelingGuideStandardInfo.DataType,2);
         %disp(ModelGuideDataCheck_Size);
         ModelSet_Data_Size=size(ModelSetInfo_Multi(ModelSetInfo_Multi_Index).ModelFileInfo.DataInfo,2);
