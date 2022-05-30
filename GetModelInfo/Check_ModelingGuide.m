@@ -124,7 +124,7 @@ function Result_message_info=CheckModelingGuide(ModelSetInfo_Multi,ModelingGuide
     
     for ModelSetInfo_Multi_Index=1:ModelSetInfo_Multi_Size
         %ModelName
-        Result_message_info(ModelSetInfo_Multi_Index).ModelName=ModelSetInfo_Multi(ModelSetInfo_Multi_Index).ModelFileInfo.ModelName;
+        Result_message_info(ModelSetInfo_Multi_Index).ModelName=string(ModelSetInfo_Multi(ModelSetInfo_Multi_Index).ModelFileInfo.ModelName);
         
         %Check Model ScreenColor
         if ModelSetInfo_Multi(ModelSetInfo_Multi_Index).ModelFileInfo.ModelScreenColor ~= ModelingGuideStandardInfo.ModelScreenColor
@@ -176,10 +176,10 @@ function Result_message_info=CheckModelingGuide(ModelSetInfo_Multi,ModelingGuide
                 %disp("Wrong Data Type");
                 Result_message_info(ModelSetInfo_Multi_Index).DataTypeCheck = 0;
                 
-                Result_message_info(ModelSetInfo_Multi_Index).DataCheckResult(DataCheckResult_index).Name=ModelSetInfo_Multi(ModelSetInfo_Multi_Index).ModelFileInfo.DataInfo(ModelSet_Data_Index).Name;
+                Result_message_info(ModelSetInfo_Multi_Index).DataCheckResult(DataCheckResult_index).Name=string(ModelSetInfo_Multi(ModelSetInfo_Multi_Index).ModelFileInfo.DataInfo(ModelSet_Data_Index).Name);
                 Result_message_info(ModelSetInfo_Multi_Index).DataCheckResult(DataCheckResult_index).Port=string(ModelSetInfo_Multi(ModelSetInfo_Multi_Index).ModelFileInfo.DataInfo(ModelSet_Data_Index).Port);
-                Result_message_info(ModelSetInfo_Multi_Index).DataCheckResult(DataCheckResult_index).DataType=ModelSetInfo_Multi(ModelSetInfo_Multi_Index).ModelFileInfo.DataInfo(ModelSet_Data_Index).DataType;
-                Result_message_info(ModelSetInfo_Multi_Index).DataCheckResult(DataCheckResult_index).Path=ModelSetInfo_Multi(ModelSetInfo_Multi_Index).ModelFileInfo.DataInfo(ModelSet_Data_Index).Path;
+                Result_message_info(ModelSetInfo_Multi_Index).DataCheckResult(DataCheckResult_index).DataType=string(ModelSetInfo_Multi(ModelSetInfo_Multi_Index).ModelFileInfo.DataInfo(ModelSet_Data_Index).DataType);
+                Result_message_info(ModelSetInfo_Multi_Index).DataCheckResult(DataCheckResult_index).Path=string(ModelSetInfo_Multi(ModelSetInfo_Multi_Index).ModelFileInfo.DataInfo(ModelSet_Data_Index).Path);
                 DataCheckResult_index=DataCheckResult_index+1;
             end
         end
@@ -190,7 +190,7 @@ function Result_message_info=CheckModelingGuide(ModelSetInfo_Multi,ModelingGuide
         for ModelSet_State_Index=1:ModelSet_State_Size
             
             %StateChartName
-            Result_message_info(ModelSetInfo_Multi_Index).StateCheckResult(ModelSet_State_Index).ChartName=ModelSetInfo_Multi(ModelSetInfo_Multi_Index).ModelFileInfo.StateChartSet(ModelSet_State_Index).Path;
+            Result_message_info(ModelSetInfo_Multi_Index).StateCheckResult(ModelSet_State_Index).ChartName=string(ModelSetInfo_Multi(ModelSetInfo_Multi_Index).ModelFileInfo.StateChartSet(ModelSet_State_Index).Path);
              
             %Check Action Language
             if ModelSetInfo_Multi(ModelSetInfo_Multi_Index).ModelFileInfo.StateChartSet(ModelSet_State_Index).ActionLanguage~=ModelingGuideStandardInfo.ActionLanguage
@@ -279,8 +279,8 @@ function Result_message_Text=Disp_Result_message(Result_message_info)
            DataCheck_Size=size(Result_message_info(Result_message_Index).DataCheckResult,2);
            
            for DataCheck_Index=1:DataCheck_Size
-               fprintf("SignalName:%s\t Port: %s\t DataType: %s\t Path: %s\n",Result_message_info(Result_message_Index).DataCheckResult(DataCheck_Index).Name,Result_message_info(Result_message_Index).DataCheckResult(DataCheck_Index).Port,Result_message_info(Result_message_Index).DataCheckResult(DataCheck_Index).DataType,Result_message_info(Result_message_Index).DataCheckResult(DataCheck_Index).Path);
-               bb=sprintf("SignalName:%s\t Port: %s\t DataType: %s\t Path: %s\n",Result_message_info(Result_message_Index).DataCheckResult(DataCheck_Index).Name,Result_message_info(Result_message_Index).DataCheckResult(DataCheck_Index).Port,Result_message_info(Result_message_Index).DataCheckResult(DataCheck_Index).DataType,Result_message_info(Result_message_Index).DataCheckResult(DataCheck_Index).Path);
+               fprintf("SignalName:%s\t DataType: %s\t Path: %s\n",Result_message_info(Result_message_Index).DataCheckResult(DataCheck_Index).Name,Result_message_info(Result_message_Index).DataCheckResult(DataCheck_Index).DataType,Result_message_info(Result_message_Index).DataCheckResult(DataCheck_Index).Path);
+               bb=sprintf("SignalName:%s\t DataType: %s\t Path: %s\n",Result_message_info(Result_message_Index).DataCheckResult(DataCheck_Index).Name,Result_message_info(Result_message_Index).DataCheckResult(DataCheck_Index).DataType,Result_message_info(Result_message_Index).DataCheckResult(DataCheck_Index).Path);
                Result_message_Text=append(Result_message_Text,bb);
            end
 
