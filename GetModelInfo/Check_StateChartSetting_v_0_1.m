@@ -14,7 +14,7 @@ ModelingGuideStandardInfo.ModelScreenColor="white";
 
 %filelist=["D:\2_CodeBase\6_SimulinkTool\MatlabSimulink_ScriptAutoTool\SampleModel\Sample.slx","D:\2_CodeBase\6_SimulinkTool\MatlabSimulink_ScriptAutoTool\SampleModel\Sample11.slx"];
 Result_message_info=CheckModelingGuide(ModelSetInfo_Multi,ModelingGuideStandardInfo);
-disp("----result---")
+%disp("----result---");
 %aa=sprintf(result_message);
 
 function Result_message_info=CheckModelingGuide(ModelSetInfo_Multi,ModelingGuideStandardInfo)

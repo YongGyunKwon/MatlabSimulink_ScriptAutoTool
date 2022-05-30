@@ -7,7 +7,6 @@ filelist=["D:\2_CodeBase\6_SimulinkTool\MatlabSimulink_ScriptAutoTool\SampleMode
 ModelSetInfo_Multi=ModelSetInfo_Mudlti(filelist);
 
 
-
 %Get ModelSet Info for Multi
 function ModelSetInfo_Multi=ModelSetInfo_Mudlti(filelist)
     filelist_size=size(filelist,2);

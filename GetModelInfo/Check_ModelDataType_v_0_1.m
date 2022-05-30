@@ -60,5 +60,4 @@ function Result_message_info=CheckModelingGuide(ModelSetInfo_Multi,ModelingGuide
         end
         
     end
-
 end

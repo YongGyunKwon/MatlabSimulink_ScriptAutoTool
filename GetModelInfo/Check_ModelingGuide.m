@@ -10,15 +10,115 @@ ModelingGuideStandardInfo.TransitionColor="#528BC5";%528bc5
 ModelingGuideStandardInfo.TransitionLabelColor="#528BC5";%528bc5
 ModelingGuideStandardInfo.JunctionColor="#C67F00"; %c67f00
 ModelingGuideStandardInfo.ModelScreenColor="white";
-%ModelingGuideStandardInfo.ModelScreenColorSecondDepth="white";
 
-%filelist=["D:\2_CodeBase\6_SimulinkTool\MatlabSimulink_ScriptAutoTool\SampleModel\Sample.slx","D:\2_CodeBase\6_SimulinkTool\MatlabSimulink_ScriptAutoTool\SampleModel\Sample11.slx"];
+% Get ModelSetting Information
+filelist=["D:\2_CodeBase\6_SimulinkTool\MatlabSimulink_ScriptAutoTool\SampleModel\Sample.slx","D:\2_CodeBase\6_SimulinkTool\MatlabSimulink_ScriptAutoTool\SampleModel\Sample11.slx"];
+
+ModelSetInfo_Multi=ModelSetInfo_Mudlti(filelist);
 Result_message_info=CheckModelingGuide(ModelSetInfo_Multi,ModelingGuideStandardInfo);
+
+%Get ModelSet Info for Multi
+function ModelSetInfo_Multi=ModelSetInfo_Mudlti(filelist)
+    filelist_size=size(filelist,2);
+    
+    for filelist_index=1:filelist_size
+        ModelSetInfo_Multi(filelist_index).FileName=string(filelist(filelist_index));
+        ModelSetInfo_Multi(filelist_index).ModelFileInfo=Get_ModelSetInfo(string(filelist(filelist_index)));
+    end
+end
+
+%Get ModelSet Info
+function ModelSetInfo=Get_ModelSetInfo(filepath)
+    
+    
+    ModelName_split=split(filepath,'\');
+    ModelName_file=string(ModelName_split(end));
+        
+    ModelName_file_split_a=split(ModelName_file,'.slx');
+    ModelFileName=string(ModelName_file_split_a(1));
+    
+
+    open_system(filepath);
+    %modelpath=find_system(SearchDepth','1');
+    
+    s=slroot;
+    
+    SubSystemPath=find_system('SearchDepth',1,'BlockType','SubSystem');
+    ModelFilename_a=split(SubSystemPath,"/");
+    FirstDepthName=string(ModelFilename_a(1));
+    
+    %ModelFileName
+    ModelSetInfo.ModelName=FirstDepthName;
+
+    statechart_handle=s.find('-isa','Stateflow.Chart');
+    statechart_handle_size=size(statechart_handle,1);
+
+    % Extract StateChart Color
+    for statechart_handle_index=1:statechart_handle_size
+        ModelSetInfo.StateChartSet(statechart_handle_index).Path=statechart_handle(statechart_handle_index).Path;
+        ModelSetInfo.StateChartSet(statechart_handle_index).ActionLanguage=statechart_handle(statechart_handle_index).ActionLanguage;
+        ModelSetInfo.StateChartSet(statechart_handle_index).Decomposition=statechart_handle(statechart_handle_index).Decomposition;
+        ModelSetInfo.StateChartSet(statechart_handle_index).ChartColor=rgb2hex(statechart_handle(statechart_handle_index).ChartColor);
+        ModelSetInfo.StateChartSet(statechart_handle_index).TransitionColor=rgb2hex(statechart_handle(statechart_handle_index).TransitionColor);
+        ModelSetInfo.StateChartSet(statechart_handle_index).TransitionLabelColor=rgb2hex(statechart_handle(statechart_handle_index).TransitionLabelColor);
+        ModelSetInfo.StateChartSet(statechart_handle_index).JunctionColor=rgb2hex(statechart_handle(statechart_handle_index).JunctionColor);
+    
+    end
+    
+    
+    % Extract Data Type Information
+    statechart_data_handle=s.find('-isa','Stateflow.Data');
+    statechart_data_handle_size=size(statechart_data_handle,1);
+    
+    for statechart_data_handle_index=1:statechart_data_handle_size
+        ModelSetInfo.DataInfo(statechart_data_handle_index).Name=statechart_data_handle(statechart_data_handle_index).Name;
+        ModelSetInfo.DataInfo(statechart_data_handle_index).Port=statechart_data_handle(statechart_data_handle_index).Port;
+        ModelSetInfo.DataInfo(statechart_data_handle_index).Scope=statechart_data_handle(statechart_data_handle_index).Scope;
+        ModelSetInfo.DataInfo(statechart_data_handle_index).Path=statechart_data_handle(statechart_data_handle_index).Path;
+        ModelSetInfo.DataInfo(statechart_data_handle_index).DataType=statechart_data_handle(statechart_data_handle_index).DataType;
+        
+    end
+    
+    %Extract Solver Information
+    myConfigObj = getActiveConfigSet(FirstDepthName); %매개변수에 모델명 넣기
+    slxConfigset =myConfigObj.find('Name','Solver');
+    
+    % Solver Type
+    ModelSetInfo.SolverType=slxConfigset.SolverName;
+    % Fixed-Step
+    ModelSetInfo.FixedStep=slxConfigset.FixedStep;
+    
+    %Get ScreenColor
+    ModelSetInfo.ModelScreenColor=string(get_param(FirstDepthName,'ScreenColor')); 
+    
+    close_system();
+
+end
+
+%Change Color rgb to Hex
+function [ hex ] = rgb2hex(rgb)
+    
+    assert(nargin==1,'This function requires an RGB input.') 
+    assert(isnumeric(rgb)==1,'Function input must be numeric.') 
+    sizergb = size(rgb); 
+    assert(sizergb(2)==3,'rgb value must have three components in the form [r g b].')
+    assert(max(rgb(:))<=255& min(rgb(:))>=0,'rgb values must be on a scale of 0 to 1 or 0 to 255')
+    
+    % If no value in RGB exceeds unity, scale from 0 to 255: 
+    if max(rgb(:))<=1
+        rgb = round(rgb*255); 
+    else
+        rgb = round(rgb); 
+    end
+    % Convert (Thanks to Stephen Cobeldick for this clever, efficient solution):
+    hex(:,2:7) = reshape(sprintf('%02X',rgb.'),6,[]).'; 
+    hex(:,1) = '#';
+end
 
 
 function Result_message_info=CheckModelingGuide(ModelSetInfo_Multi,ModelingGuideStandardInfo)
     ModelSetInfo_Multi_Size=size(ModelSetInfo_Multi,2);
-    disp(ModelSetInfo_Multi_Size);
+    %disp(ModelSetInfo_Multi_Size);
     
     for ModelSetInfo_Multi_Index=1:ModelSetInfo_Multi_Size
         %ModelName
@@ -65,7 +165,7 @@ function Result_message_info=CheckModelingGuide(ModelSetInfo_Multi,ModelingGuide
         for ModelSet_Data_Index=1:ModelSet_Data_Size
 
             %DataType Check Logic
-            disp(ModelSetInfo_Multi(ModelSetInfo_Multi_Index).ModelFileInfo.DataInfo(ModelSet_Data_Index).DataType);
+            %disp(ModelSetInfo_Multi(ModelSetInfo_Multi_Index).ModelFileInfo.DataInfo(ModelSet_Data_Index).DataType);
             DataCheck_result=contains(ModelingGuideStandardInfo.DataType,ModelSetInfo_Multi(ModelSetInfo_Multi_Index).ModelFileInfo.DataInfo(ModelSet_Data_Index).DataType);
             
             if find(DataCheck_result,1)
@@ -143,10 +243,7 @@ function Result_message_info=CheckModelingGuide(ModelSetInfo_Multi,ModelingGuide
                 %1 정상
                 Result_message_info(ModelSetInfo_Multi_Index).StateCheckResult(ModelSet_State_Index).CheckJunctionColor=1;
             end
-           
         end
-        
-        %result_message=append(result_message,"---------------------------------------------------------------------\n");
     end
-
 end
+
