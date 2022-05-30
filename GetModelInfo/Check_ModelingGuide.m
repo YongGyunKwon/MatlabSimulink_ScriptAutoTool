@@ -1,3 +1,5 @@
+%REQ-0005
+%모델링 가이드 준수
 
 %Modeling Guide Info
 ModelingGuideStandardInfo.DataType=["uint8","uint32","single","boolean"];
@@ -16,6 +18,7 @@ filelist=["D:\2_CodeBase\6_SimulinkTool\MatlabSimulink_ScriptAutoTool\SampleMode
 
 ModelSetInfo_Multi=ModelSetInfo_Mudlti(filelist);
 Result_message_info=CheckModelingGuide(ModelSetInfo_Multi,ModelingGuideStandardInfo);
+textmessage=Disp_Result_message(Result_message_info);
 
 %Get ModelSet Info for Multi
 function ModelSetInfo_Multi=ModelSetInfo_Mudlti(filelist)
@@ -91,7 +94,7 @@ function ModelSetInfo=Get_ModelSetInfo(filepath)
     %Get ScreenColor
     ModelSetInfo.ModelScreenColor=string(get_param(FirstDepthName,'ScreenColor')); 
     
-    close_system();
+    close_system(filepath);
 
 end
 
@@ -127,10 +130,10 @@ function Result_message_info=CheckModelingGuide(ModelSetInfo_Multi,ModelingGuide
         %Check Model ScreenColor
         if ModelSetInfo_Multi(ModelSetInfo_Multi_Index).ModelFileInfo.ModelScreenColor ~= ModelingGuideStandardInfo.ModelScreenColor
             %0 Wrong
-            Result_message_info(ModelSetInfo_Multi_Index).ScreenColorCheck = 0;
+            Result_message_info(ModelSetInfo_Multi_Index).CheckScreenColor = 0;
         else
             %1 정상
-            Result_message_info(ModelSetInfo_Multi_Index).ScreenColorCheck = 1;
+            Result_message_info(ModelSetInfo_Multi_Index).CheckScreenColor = 1;
         end
 
         %Check Solver Type
@@ -247,3 +250,83 @@ function Result_message_info=CheckModelingGuide(ModelSetInfo_Multi,ModelingGuide
     end
 end
 
+function Result_message_Text=Disp_Result_message(Result_message_info)
+
+    Result_message_info_Size=size(Result_message_info,2);
+    Result_message_Text="";
+    for Result_message_Index=1:Result_message_info_Size
+       fprintf("ModelName: %s\n",Result_message_info(Result_message_Index).ModelName);
+       aa=sprintf("ModelName: %s\n",Result_message_info(Result_message_Index).ModelName);
+       Result_message_Text=append(Result_message_Text,aa);
+       
+       if Result_message_info(Result_message_Index).CheckScreenColor == 0
+           fprintf("Wrong Screen Color\n");
+           Result_message_Text=append(Result_message_Text,"Wrong Screen Color\n");
+       end
+       
+       if Result_message_info(Result_message_Index).CheckSolverType == 0
+           fprintf("Wrong Solver Type\n");
+           Result_message_Text=append(Result_message_Text,"Wrong Solver Type\n");
+       end
+
+       if Result_message_info(Result_message_Index).CheckFixedStep == 0
+           fprintf("Wrong Fixed-Step\n");
+           Result_message_Text=append(Result_message_Text,"Wrong Fixed-Step\n");
+       end
+
+       if Result_message_info(Result_message_Index).DataTypeCheck == 0
+           fprintf("Wrong DataType\n");
+           Result_message_Text=append(Result_message_Text,"Wrong DataType\n");
+           DataCheck_Size=size(Result_message_info(Result_message_Index).DataCheckResult,2);
+           
+           for DataCheck_Index=1:DataCheck_Size
+               fprintf("SignalName:%s\t Port: %s\t DataType: %s\t Path: %s\n",Result_message_info(Result_message_Index).DataCheckResult(DataCheck_Index).Name,Result_message_info(Result_message_Index).DataCheckResult(DataCheck_Index).Port,Result_message_info(Result_message_Index).DataCheckResult(DataCheck_Index).DataType,Result_message_info(Result_message_Index).DataCheckResult(DataCheck_Index).Path);
+               bb=sprintf("SignalName:%s\t Port: %s\t DataType: %s\t Path: %s\n",Result_message_info(Result_message_Index).DataCheckResult(DataCheck_Index).Name,Result_message_info(Result_message_Index).DataCheckResult(DataCheck_Index).Port,Result_message_info(Result_message_Index).DataCheckResult(DataCheck_Index).DataType,Result_message_info(Result_message_Index).DataCheckResult(DataCheck_Index).Path);
+               Result_message_Text=append(Result_message_Text,bb);
+           end
+
+       end
+        
+       StateCheck_Result_Size=size(Result_message_info(Result_message_Index).StateCheckResult,2);
+       
+       for StateCheck_Result_Index=1:StateCheck_Result_Size
+            if Result_message_info(Result_message_Index).StateCheckResult(StateCheck_Result_Index).CheckActionLanguage==0
+                fprintf("%s\t Wrong Action Language\n",Result_message_info(Result_message_Index).StateCheckResult(StateCheck_Result_Index).ChartName);
+                cc=sprintf("%s\t Wrong Action Language\n",Result_message_info(Result_message_Index).StateCheckResult(StateCheck_Result_Index).ChartName);
+                Result_message_Text=append(Result_message_Text,cc);
+            end
+            
+            if Result_message_info(Result_message_Index).StateCheckResult(StateCheck_Result_Index).CheckDecomposition==0
+                fprintf("%s\t Wrong Decomposition\n",Result_message_info(Result_message_Index).StateCheckResult(StateCheck_Result_Index).ChartName);
+                dd=sprintf("%s\t Wrong Decomposition\n",Result_message_info(Result_message_Index).StateCheckResult(StateCheck_Result_Index).ChartName);
+                Result_message_Text=append(Result_message_Text,dd);
+            end
+            
+            if Result_message_info(Result_message_Index).StateCheckResult(StateCheck_Result_Index).CheckChartColor==0
+                fprintf("%s\t Wrong Chart Color\n",Result_message_info(Result_message_Index).StateCheckResult(StateCheck_Result_Index).ChartName);
+                ee=sprintf("%s\t Wrong Chart Color\n",Result_message_info(Result_message_Index).StateCheckResult(StateCheck_Result_Index).ChartName);
+                Result_message_Text=append(Result_message_Text,ee);
+            end
+
+            if Result_message_info(Result_message_Index).StateCheckResult(StateCheck_Result_Index).CheckTransitionColor==0
+                fprintf("%s\t Wrong Transition Color\n",Result_message_info(Result_message_Index).StateCheckResult(StateCheck_Result_Index).ChartName);
+                ff=sprintf("%s\t Wrong Transition Color\n",Result_message_info(Result_message_Index).StateCheckResult(StateCheck_Result_Index).ChartName);
+                Result_message_Text=append(Result_message_Text,ff);
+            end
+            
+            if Result_message_info(Result_message_Index).StateCheckResult(StateCheck_Result_Index).CheckTransitionLabelColor==0
+                fprintf("%s\t Wrong Transition Label Color\n",Result_message_info(Result_message_Index).StateCheckResult(StateCheck_Result_Index).ChartName);
+                gg=sprintf("%s\t Wrong Transition Label Color\n",Result_message_info(Result_message_Index).StateCheckResult(StateCheck_Result_Index).ChartName);
+                Result_message_Text=append(Result_message_Text,gg);
+
+            end
+
+            if Result_message_info(Result_message_Index).StateCheckResult(StateCheck_Result_Index).CheckJunctionColor==0
+                fprintf("%s\t Wrong Junction Color\n",Result_message_info(Result_message_Index).StateCheckResult(StateCheck_Result_Index).ChartName);
+                hh=sprintf("%s\t Wrong Junction Color\n",Result_message_info(Result_message_Index).StateCheckResult(StateCheck_Result_Index).ChartName);
+                Result_message_Text=append(Result_message_Text,hh);
+            end
+
+       end
+    end
+end
