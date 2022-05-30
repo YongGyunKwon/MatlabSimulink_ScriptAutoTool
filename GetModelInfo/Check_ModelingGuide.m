@@ -33,7 +33,6 @@ end
 %Get ModelSet Info
 function ModelSetInfo=Get_ModelSetInfo(filepath)
     
-    
     ModelName_split=split(filepath,'\');
     ModelName_file=string(ModelName_split(end));
         
