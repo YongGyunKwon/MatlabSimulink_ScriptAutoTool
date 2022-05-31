@@ -3,15 +3,16 @@
 filename="D:\2_CodeBase\6_SimulinkTool\MatlabSimulink_ScriptAutoTool\Analysis_Model\AnalysisSample11.slx"; %Change Filename by your PC Setting
 parafilepath = 'D:\2_CodeBase\6_SimulinkTool\MatlabSimulink_ScriptAutoTool\Analysis_Model\AnalysisSample_Parameter.m';
 
-Model_Signal=Get_ModelSig_Info(filename);
-Analysis_Result=AnalySis_ModelSig_Info(Model_Signal,parafilepath);
-Analysis_Result2=AnalySis_ModelSig_Info(Get_ModelSig_Info(filename),parafilepath);
+%Model_Signal=Get_ModelSig_Info(filename);
+Analysis_Result=AnalySis_ModelSig_Info(filename,parafilepath);
 
 
-function Analysis_Signal=AnalySis_ModelSig_Info(Model_Signal,parafilepath)
+function Analysis_Signal=AnalySis_ModelSig_Info(filename,parafilepath)
     
+    %Extract Model I/O, Local, Parameter
+    Model_Signal=Get_ModelSig_Info(filename);
+
     %Analysis Internal, Outernal
-    
     Model_Signal_forCheck=Model_Signal;
     
     Analysis_Output_Size=size(Model_Signal.Output,2);
