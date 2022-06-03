@@ -33,15 +33,17 @@ function Analysis_Signal=AnalySis_ModelSig_Info(filename,parafilepath)
         %Find Internal Signal
         if find(find_Internalsignal,1)
             %disp("Internal");
-            Analysis_Signal.Internal(Internal_Index).FromIO="Output";
+            
             Analysis_Signal.Internal(Internal_Index).FromName=Model_Signal.Output(Analysis_Output_Index).Name;
+            Analysis_Signal.Internal(Internal_Index).FromIO="Output";
             Analysis_Signal.Internal(Internal_Index).Port=Model_Signal.Output(Analysis_Output_Index).Port;
             Analysis_Signal.Internal(Internal_Index).FromPath=Model_Signal.Output(Analysis_Output_Index).Path;
 
             Model_Signal_forCheck.Output(Analysis_Output_Index).Check=1;
             
-            Analysis_Signal.Internal(Internal_Index).ToIO="Input";
+            
             Analysis_Signal.Internal(Internal_Index).ToName=Model_Signal.Input(ToSignalIndex).Name;
+            Analysis_Signal.Internal(Internal_Index).ToIO="Input";
             Analysis_Signal.Internal(Internal_Index).ToPort=Model_Signal.Input(ToSignalIndex).Port;
             Analysis_Signal.Internal(Internal_Index).ToPath=Model_Signal.Input(ToSignalIndex).Path;
             Model_Signal_forCheck.Input(ToSignalIndex).Check=1;
@@ -154,16 +156,16 @@ function FirstDepthIO=Get_IOFirstDepth(filename)
 
 
     for Inport_Index=1:Inport_Size
-        FirstDepthIO(FirstDepthIO_Index).IO="Inport";
         FirstDepthIO(FirstDepthIO_Index).Name=string(get_param(Inport(Inport_Index),'Name'));
+        FirstDepthIO(FirstDepthIO_Index).IO="Inport";
         FirstDepthIO(FirstDepthIO_Index).Port=string(get_param(Inport(Inport_Index),'Port'));
         
         FirstDepthIO_Index=FirstDepthIO_Index+1;
     end
 
     for Outport_Index=1:Outport_Size
-        FirstDepthIO(FirstDepthIO_Index).IO="Outport";
         FirstDepthIO(FirstDepthIO_Index).Name=string(get_param(Outport(Outport_Index),'Name'));
+        FirstDepthIO(FirstDepthIO_Index).IO="Outport";
         FirstDepthIO(FirstDepthIO_Index).Port=string(get_param(Outport(Outport_Index),'Port'));
 
         FirstDepthIO_Index=FirstDepthIO_Index+1;
