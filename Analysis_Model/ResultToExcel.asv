@@ -1,0 +1,8 @@
+
+AnalysisFilepath = "1.xlsx";
+
+ExcelInternal=struct2table(Analysis_Result.Internal);
+ExcelOutnernalI=struct2table(Analysis_Result.Outernal);
+
+writematrix("Internal",AnalysisFilepath,'Sheet','AnalysisResult','Range','B1');
+writetable(ExcelInternal,AnalysisFilepath,'Sheet','AnalysisResult','Range','B1');
